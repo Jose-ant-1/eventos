@@ -42,22 +42,22 @@ function mostrarDatosTabla(listaAMostrar) {
                 <td>${persona.surname}</td>
                 <td>${persona.age}</td>
                 <td>${persona.alive ? check : equis}</td>
+                <td>${papelera}</td>
             </tr>`;
         })
         .join('');
 }
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const tbody = document.getElementById("tbody");
-    const btnNuevo = document.getElementById("boton");
+    const boton = document.getElementById("boton");
 
     const inputNombre = document.getElementById("nombre");
     const inputApellido = document.getElementById("apellido");
     const inputEdad = document.getElementById("edad");
     const inputVivo = document.getElementById("vivo");
+
 
     // Pintamos la tabla al inicio
     tbody.innerHTML = mostrarDatosTabla(personas);
@@ -67,48 +67,58 @@ document.addEventListener("DOMContentLoaded", () => {
     // Delegación de eventos en <tbody>
     tbody.addEventListener("click", (e) => {
 
-        const fila = e.target.closest("tr");
+        const fila = e.target.closest("tr"); // Obtiene la fila pulsada
         if (!fila) return;
 
-        // ---- LIMPIAR CELDA SELECCIONADA ANTERIOR ----
-        const celdaAnterior = tbody.querySelector("td.cell-selected");
-        if (celdaAnterior) celdaAnterior.classList.remove("cell-selected");
-
-        // ---- LIMPIAR FILA SELECCIONADA ANTERIOR ----
+        // Quitar resaltado previo
         if (filaSeleccionada) {
-            filaSeleccionada.classList.remove("table-selected");
+            filaSeleccionada.classList.remove("table-success");
         }
 
-        // ---- MARCAR FILA SELECCIONADA ----
-        fila.classList.add("table-selected");
+        // Resaltar fila nueva
+        fila.classList.add("table-success");
         filaSeleccionada = fila;
 
-        // ---- MARCAR SOLO LA CELDA CLICADA ----
-        const celda = e.target.closest("td");
-        if (celda) celda.classList.add("cell-selected");
-
-        // ---- OBTENER EL ÍNDICE ----
+        // Obtener el índice
         const index = fila.dataset.index;
         const persona = personas[index];
 
-        // ---- CARGAR FORMULARIO ----
+        // Cargar datos en formulario
         inputNombre.value = persona.name;
         inputApellido.value = persona.surname;
         inputEdad.value = persona.age;
         inputVivo.checked = persona.alive;
 
-        // ---- CAMBIAR BOTÓN ----
-        btnNuevo.textContent = "Edit";
-        btnNuevo.dataset.editing = index;
+        // Cambiar texto del botón
+        boton.textContent = "Edit";
+
+        // Guardar el índice en el botón para saber qué persona editar
+        boton.dataset.editing = index;
+
     });
+
+    boton.addEventListener("click", () => {
+        if (!boton.dataset.editing) return;
+
+        const index = boton.dataset.editing;
+        const persona = personas[index];
+
+        persona.name = inputNombre.value;
+        persona.surname = inputApellido.value;
+        persona.age = Number(inputEdad.value);
+        persona.alive = inputVivo.checked;
+        persona.editCount++;
+
+        tbody.innerHTML = mostrarDatosTabla(personas);
+
+        inputNombre.value = "";
+        inputApellido.value = "";
+        inputEdad.value = "";
+
+        boton.textContent = "Add";
+        delete boton.dataset.editing;
+        filaSeleccionada = null;
+    })
 
 
 });
-
-
-
-
-
-
-
-

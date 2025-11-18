@@ -1,0 +1,16 @@
+/* Elemento donde se muestra la información */
+#info {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: #eee;
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 250px;
+    font-family: Arial, sans-serif;
+}
+
+/* Clase que se aplicará cuando el ratón entre en un elemento */
+.resaltado {
+    background-color: yellow !important;
+}
