@@ -49,7 +49,6 @@ function mostrarDatosTabla(listaAMostrar) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
     const tbody = document.getElementById("tbody");
     const boton = document.getElementById("boton");
 
@@ -57,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputApellido = document.getElementById("apellido");
     const inputEdad = document.getElementById("edad");
     const inputVivo = document.getElementById("vivo");
-
 
     // Pintamos la tabla al inicio
     tbody.innerHTML = mostrarDatosTabla(personas);
@@ -144,6 +142,5 @@ document.addEventListener("DOMContentLoaded", () => {
         delete boton.dataset.editing;
         filaSeleccionada = null;
     })
-
 
 });
