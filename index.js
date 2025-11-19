@@ -1,5 +1,5 @@
 console.log('Happy developing ✨')
-const personas = [
+let personas = [
     {
         name: 'Jon',
         surname: 'Doe',
@@ -70,6 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const fila = e.target.closest("tr"); // Obtiene la fila pulsada
         if (!fila) return;
 
+        tbody.querySelectorAll("td.bg-success").forEach(td => {
+            td.classList.remove("bg-success");
+        })
+
+        const celda = e.target.closest("td");
+        if (celda) {
+            celda.classList.add("bg-success");
+        }
+
+
         // Quitar resaltado previo
         if (filaSeleccionada) {
             filaSeleccionada.classList.remove("table-success");
@@ -97,17 +107,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    boton.addEventListener("click", () => {
-        if (!boton.dataset.editing) return;
-
+    boton.addEventListener("click", (e) => {
+        e.preventDefault();
         const index = boton.dataset.editing;
         const persona = personas[index];
+        if (boton.textContent === "Edit" && boton.dataset.editing !== undefined) {
+            if (inputNombre.value !== "" && inputApellido.value !== "" && inputEdad.value >= 0) {
+                persona.name = inputNombre.value;
+                persona.surname = inputApellido.value;
+                persona.age = Number(inputEdad.value);
+                persona.alive = inputVivo.checked;
+                persona.editCount++;
+            }
 
-        persona.name = inputNombre.value;
-        persona.surname = inputApellido.value;
-        persona.age = Number(inputEdad.value);
-        persona.alive = inputVivo.checked;
-        persona.editCount++;
+        } else {
+            if (inputNombre.value !== "" && inputApellido.value !== "" && inputEdad.value >= 0) {
+                const personaNueva = {
+                    name: inputNombre.value,
+                    surname: inputApellido.value,
+                    age: Number(inputEdad.value),
+                    alive: inputVivo.checked,
+                    editCount: 0,
+                }
+                personas.push(personaNueva);
+            }
+        }
+
 
         tbody.innerHTML = mostrarDatosTabla(personas);
 
@@ -115,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
         inputApellido.value = "";
         inputEdad.value = "";
 
-        boton.textContent = "Add";
+        boton.textContent = "Nuevo";
         delete boton.dataset.editing;
         filaSeleccionada = null;
     })
