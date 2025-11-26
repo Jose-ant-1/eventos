@@ -42,14 +42,14 @@ function mostrarDatosTabla(listaAMostrar) {
                 <td>${persona.surname}</td>
                 <td>${persona.age}</td>
                 <td>${persona.alive ? check : equis}</td>
-                <td>${papelera}</td>
+                <td><button class="eliminar" data-index="${index}">${papelera}</button></td>
             </tr>`;
         })
         .join('');
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const tbody = document.getElementById("tbody");
+    const tBodyPerson = document.getElementById("tbodyPersona");
     const boton = document.getElementById("boton");
 
     const inputNombre = document.getElementById("nombre");
@@ -58,17 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputVivo = document.getElementById("vivo");
 
     // Pintamos la tabla al inicio
-    tbody.innerHTML = mostrarDatosTabla(personas);
+    tBodyPerson.innerHTML = mostrarDatosTabla(personas);
 
     let filaSeleccionada = null;
 
+
     // Delegación de eventos en <tbody>
-    tbody.addEventListener("click", (e) => {
+    tBodyPerson.addEventListener("click", (e) => {
+
+        const botonEliminar = e.target.closest('.eliminar');
+
+        if (botonEliminar) eliminarPersona();/*
+
+            return;
+        */
 
         const fila = e.target.closest("tr"); // Obtiene la fila pulsada
         if (!fila) return;
 
-        tbody.querySelectorAll("td.bg-success").forEach(td => {
+        tBodyPerson.querySelectorAll("td.bg-success").forEach(td => {
             td.classList.remove("bg-success");
         })
 
@@ -103,6 +111,21 @@ document.addEventListener("DOMContentLoaded", () => {
         // Guardar el índice en el botón para saber qué persona editar
         boton.dataset.editing = index;
 
+        function eliminarPersona() {
+            const personaAEliminar = parseInt(botonEliminar.dataset.index);
+            personas.splice(personaAEliminar,1)
+            tBodyPerson.innerHTML = mostrarDatosTabla(personas);
+            if (filaSeleccionada || filaSeleccionada.dataset.index === botonEliminar.data.index) {
+                inputNombre.value = "";
+                inputApellido.value = "";
+                inputEdad.value = "";
+                inputVivo.checked = false;
+                boton.textContent = "Nuevo";
+                delete boton.dataset.editing;
+                filaSeleccionada = null;
+            }
+        }
+
     });
 
     boton.addEventListener("click", (e) => {
@@ -132,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        tbody.innerHTML = mostrarDatosTabla(personas);
+        tBodyPerson.innerHTML = mostrarDatosTabla(personas);
 
         inputNombre.value = "";
         inputApellido.value = "";
