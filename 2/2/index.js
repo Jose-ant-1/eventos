@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Number of links linking to the institute's website
     let count = 0;
     links.forEach(link => {
-        if (link.href.startsWith("https://www.institute.")) {count++}
+        if (link.href.startsWith("https://iesbelen.")) {count++}
     })
     console.log(count);
     // Number of links in the third paragraph

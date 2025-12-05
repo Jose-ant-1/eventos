@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<form>
+    <div>
+        <label for="inputName">Name</label>
+        <input type="text" id="inputName">
+    </div>
+    <div>
+        <label for="inputAge">Age</label>
+        <input type="number" id="inputAge">
+    </div>
+    <div>
+        <label for="selectCountry">Country</label>
+        <select id="selectCountry">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    <div>
+        <label for="all">All</label>
+        <input type="checkbox" id="all" name="hobby">
+        <label for="tennis">Tennis</label>
+        <input type="checkbox" id="tennis" name="hobby">
+        <label for="food">Food</label>
+        <input type="checkbox" id="food" name="hobby">
+        <label for="travel">Travel</label>
+        <input type="checkbox" id="travel" name="hobby">
+        <label for="walk">Walk</label>
+        <input type="checkbox" id="walk" name="hobby">
+    </div>
+    <div>
+        <label for="pizza">Pizza</label>
+        <input type="radio" id="pizza" name="food">
+        <label for="burguer">Burguer</label>
+        <input type="radio" id="burguer" name="food">
+        <label for="campero">Campero</label>
+        <input type="radio" id="campero" name="food">
+    </div>
+    <div>
+        <label for="flavor">Choose a flavor</label>
+        <datalist>
+            <option value="Chocolate">Chocolate</option>
+        </datalist>
+
+    </div>
+
+
+</form>
+
+</body>
+</html>
