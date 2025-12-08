@@ -1,4 +1,4 @@
-[
+export const provincinas = [
   {
     "parent_code": "0",
     "label": "Andalucía",
